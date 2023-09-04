@@ -1,2 +1,2 @@
-#!/bin/sh
-py -c $PYCODE
+#!/bin/bash
+py -c "$PYCODE"
