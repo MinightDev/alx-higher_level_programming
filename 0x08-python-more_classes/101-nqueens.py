@@ -1,40 +1,42 @@
 #!/usr/bin/python3
 """
-nqueens backtracking program to print the coordinates of n queens
-on an nxn grid such that they are all in non-attacking positions
+N-Queens backtracking program to print the coordinates of N queens
+on an NxN grid such that they are all in non-attacking positions.
 """
-
 
 import sys
 
-def is_safe(board, row, col):
-    """
-    Check if it's safe to place a queen at a given position on the board.
-    """
-    for i in range(col):
-        if board[i] == row or \
-           board[i] - i == row - col or \
-           board[i] + i == row + col:
-            return False
-    return True
+def nqueens(N):
+    def is_safe(board, row, col):
+        """
+        Check if it's safe to place a queen at a given position on the board.
+        """
+        for i in range(col):
+            if board[i] == row or \
+               board[i] - i == row - col or \
+               board[i] + i == row + col:
+                return False
+        return True
 
-def solve_nqueens(n):
-    """
-    Solve the N Queens problem using backtracking.
-    """
-    def backtrack(board, col):
-        if col == n:
+    def solve(board, col):
+        if col == N:
             solutions.append(board[:])
             return
-        for row in range(n):
+        for row in range(N):
             if is_safe(board, row, col):
                 board[col] = row
-                backtrack(board, col + 1)
+                solve(board, col + 1)
+
+    if not isinstance(N, int) or N < 4:
+        print("N must be a number and at least 4")
+        sys.exit(1)
 
     solutions = []
-    board = [-1] * n
-    backtrack(board, 0)
-    return solutions
+    board = [-1] * N
+    solve(board, 0)
+
+    for solution in solutions:
+        print([[i, solution[i]] for i in range(N)])
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
@@ -43,13 +45,7 @@ if __name__ == "__main__":
 
     try:
         n = int(sys.argv[1])
-        if n < 4:
-            print("N must be at least 4")
-            sys.exit(1)
+        nqueens(n)
     except ValueError:
         print("N must be a number")
         sys.exit(1)
-
-    solutions = solve_nqueens(n)
-    for solution in solutions:
-        print([[i, solution[i]] for i in range(n)])
