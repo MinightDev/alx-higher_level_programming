@@ -1,21 +1,11 @@
 #!/usr/bin/python3
 """
-Contains the BaseGeometry class
+Contains the class BaseGeometry
 """
 
 
 class BaseGeometry:
-    """
-    A class representing basic geometry operations.
-    """
-
+    """A class with public attribute area"""
     def area(self):
-        """
-        Calculate the area.
-
-        Raises:
-            Exception: Always raises an Exception with the message
-                "area() is not implemented".
-        """
+        """raises an exception when called"""
         raise Exception("area() is not implemented")
-
